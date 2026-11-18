@@ -84,6 +84,15 @@
     <h1>Selesaikan pembayaran.</h1>
 
     <div class="payment-box">
+      <div style="margin:20px 0">
+  <label for="buyer-name">Nama Pembeli</label>
+  <input
+    type="text"
+    id="buyer-name"
+    placeholder="Masukkan nama kamu"
+    style="width:100%;padding:14px;margin-top:10px;border-radius:10px"
+  >
+      </div>
       <p>Kode Pesanan</p>
       <h2 id="order-code">ARS-000000</h2>
 
@@ -188,17 +197,34 @@ function selectPayment() {
   document.getElementById("paid-button").disabled = false;
 }
 
+
 function paymentDone() {
+  const buyerName = document
+    .getElementById("buyer-name")
+    .value.trim();
+
+  if (!buyerName) {
+    alert("Nama pembeli wajib diisi!");
+    return;
+  }
+
   if (!selectedPayment) {
     alert("Pilih metode pembayaran dulu!");
     return;
   }
 
+  if (typeof cart === "undefined" || cart.length === 0) {
+    alert("Keranjang masih kosong!");
+    return;
+  }
+
+  localStorage.setItem("buyer_name", buyerName);
   localStorage.setItem("arsan_payment_method", selectedPayment);
-  localStorage.setItem("arsan_payment_status", "PAID");
+  localStorage.setItem("arsan_payment_status", "MENUNGGU_VERIFIKASI");
 
   window.location.href = "whatsapp.html";
 }
+
 
 const paymentButtons = document.querySelectorAll(".payment-methods button");
 
