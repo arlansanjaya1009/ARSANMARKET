@@ -1,1 +1,151 @@
 
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pembayaran - ARSANMARKET</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="navbar">
+  <a href="index.html" class="logo">ARSAN<span>MARKET.</span></a>
+</header>
+
+<main class="checkout-page">
+  <section class="checkout-section">
+    <p class="eyebrow">PEMBAYARAN</p>
+    <h1>Selesaikan pembayaran.</h1>
+
+    <div class="payment-box">
+      <p>Kode Pesanan</p>
+      <h2 id="order-code">ARS-000000</h2>
+
+      <div id="payment-summary"></div>
+
+      <h3>Pilih Metode Pembayaran</h3>
+
+      <div class="payment-methods">
+        <button type="button" data-payment="QRIS">QRIS</button>
+        <button type="button" data-payment="DANA">DANA</button>
+        <button type="button" data-payment="GoPay">GoPay</button>
+        <button type="button" data-payment="SeaBank">SeaBank</button>
+        <button type="button" data-payment="Bank Jago">Bank Jago</button>
+      </div>
+
+      <div id="payment-detail"></div>
+
+      <button type="button" id="paid-button" class="primary-button" disabled>
+        Saya Sudah Melakukan Payment
+      </button>
+    </div>
+  </section>
+</main>
+
+<script src="products.js"></script>
+<script src="cart.js"></script>
+
+<script>
+let selectedPayment = "";
+
+function generateOrderCode() {
+  return "ARS-" + Math.floor(100000 + Math.random() * 900000);
+}
+
+let orderCode = localStorage.getItem("arsan_order_code");
+
+if (!orderCode) {
+  orderCode = generateOrderCode();
+  localStorage.setItem("arsan_order_code", orderCode);
+}
+
+document.getElementById("order-code").textContent = orderCode;
+
+function loadPaymentSummary() {
+  const container = document.getElementById("payment-summary");
+
+  if (!container) return;
+
+  if (typeof cart === "undefined" || cart.length === 0) {
+    container.innerHTML = "<p>Keranjang masih kosong.</p>";
+    return;
+  }
+
+  let html = "";
+  let total = 0;
+
+  for (let i = 0; i < cart.length; i++) {
+    const product = cart[i];
+    total += product.price * product.quantity;
+
+    html += "<div class='cart-summary-item'>" +
+      "<strong>" + product.name + "</strong>" +
+      "<p>" + product.quantity + " x " +
+      formatRupiah(product.price) + "</p></div>";
+  }
+
+  html += "<hr><h3>Total: " + formatRupiah(total) + "</h3>";
+  container.innerHTML = html;
+}
+
+function selectPayment() {
+  const buttons = document.querySelectorAll(".payment-methods button");
+
+  for (let i = 0; i < buttons.length; i++) {
+    buttons[i].classList.remove("active");
+  }
+
+  this.classList.add("active");
+  selectedPayment = this.dataset.payment;
+
+  let detail = "";
+
+  if (selectedPayment === "QRIS") {
+    detail = "<div class='payment-detail'><h3>QRIS</h3>" +
+      "<p>Silakan scan QRIS untuk membayar.</p>" +
+      "<p><strong>QRIS BELUM DIISI</strong></p></div>";
+  }
+
+  if (selectedPayment === "DANA" || selectedPayment === "GoPay") {
+    detail = "<div class='payment-detail'><h3>" + selectedPayment + "</h3>" +
+      "<p>Nomor: <strong>0895359997900</strong></p>" +
+      "<p>Atas nama: <strong>Arlan Candra Sanjaya</strong></p></div>";
+  }
+
+  if (selectedPayment === "SeaBank" || selectedPayment === "Bank Jago") {
+    detail = "<div class='payment-detail'><h3>" + selectedPayment + "</h3>" +
+      "<p>Nomor rekening: <strong>ISI SENDIRI</strong></p>" +
+      "<p>Atas nama: <strong>Arlan Candra Sanjaya</strong></p></div>";
+  }
+
+  document.getElementById("payment-detail").innerHTML = detail;
+  document.getElementById("paid-button").disabled = false;
+}
+
+function paymentDone() {
+  if (!selectedPayment) {
+    alert("Pilih metode pembayaran dulu!");
+    return;
+  }
+
+  localStorage.setItem("arsan_payment_method", selectedPayment);
+  localStorage.setItem("arsan_payment_status", "PAID");
+
+  window.location.href = "whatsapp.html";
+}
+
+const paymentButtons = document.querySelectorAll(".payment-methods button");
+
+for (let i = 0; i < paymentButtons.length; i++) {
+  paymentButtons[i].addEventListener("click", selectPayment);
+}
+
+document.getElementById("paid-button").addEventListener("click", paymentDone);
+
+loadPaymentSummary();
+</script>
+
+</body>
+</html>
+
