@@ -1,0 +1,125 @@
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#0b0a12">
+  <title>ARSANMARKET — Game Account Store</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="navbar">
+  <a href="#home" class="logo">ARSAN<span>MARKET.</span></a>
+
+  <nav>
+    <a href="#home">Beranda</a>
+    <a href="#products">Produk</a>
+    <a href="#about">Tentang</a>
+  </nav>
+
+  <button class="cart-button" onclick="openCart()">
+    <span>Keranjang</span>
+    <span class="cart-count" id="cart-count">0</span>
+  </button>
+</header>
+
+<main>
+  <section class="hero" id="home">
+    <div class="hero-content">
+      <p class="eyebrow">WELCOME TO ARSANMARKET</p>
+      <h1>Find Your Next<br><span>Gaming Account.</span></h1>
+      <p class="hero-desc">
+        Temukan akun game pilihanmu dengan mudah.
+        Pilih produk, masukkan keranjang, dan lanjutkan checkout.
+      </p>
+      <a href="#products" class="primary-button">Jelajahi Produk ↗</a>
+    </div>
+
+    <div class="hero-art">
+      <div class="hero-orbit"></div>
+      <div class="hero-symbol">A</div>
+      <div class="hero-tag">PLAY DIFFERENT<br>LEVEL UP YOUR GAME</div>
+    </div>
+  </section>
+
+  <section class="benefits">
+    <div><strong>01</strong><span>Produk pilihan</span></div>
+    <div><strong>02</strong><span>Belanja praktis</span></div>
+    <div><strong>03</strong><span>Layanan pelanggan</span></div>
+  </section>
+
+  <section class="products-section" id="products">
+    <div class="section-heading">
+      <div>
+        <p class="eyebrow">GAME COLLECTION</p>
+        <h2>Temukan akunmu.</h2>
+      </div>
+
+      <input
+        type="search"
+        id="search"
+        placeholder="Cari akun game..."
+        autocomplete="off"
+      >
+    </div>
+
+    <div class="categories">
+      <button class="category active" data-category="Semua">Semua</button>
+      <button class="category" data-category="Free Fire">Free Fire</button>
+      <button class="category" data-category="Mobile Legends">Mobile Legends</button>
+      <button class="category" data-category="PUBG">PUBG Mobile</button>
+    </div>
+
+    <div class="product-grid" id="product-list">
+      <p class="loading-text">Memuat produk...</p>
+    </div>
+  </section>
+
+  <section class="about" id="about">
+    <p class="eyebrow">ABOUT ARSANMARKET</p>
+    <h2>Your Game.<br>Your Collection.</h2>
+    <p>
+      ARSANMARKET adalah toko akun game dengan tampilan
+      sederhana agar kamu mudah menemukan produk pilihan.
+    </p>
+  </section>
+</main>
+
+<footer>
+  <a href="#home" class="logo">ARSAN<span>MARKET.</span></a>
+  <p>© 2026 ARSANMARKET. All rights reserved.</p>
+</footer>
+
+<!-- CART MODAL -->
+<div class="modal" id="cart-modal">
+  <div class="modal-content">
+
+    <div class="modal-heading">
+      <div>
+        <p class="eyebrow">YOUR SHOPPING</p>
+        <h2>Keranjang</h2>
+      </div>
+      <button class="close-button" onclick="closeCart()">×</button>
+    </div>
+
+    <div id="cart-items"></div>
+
+    <div class="cart-total">
+      <span>Total pembayaran</span>
+      <strong id="cart-total">Rp0</strong>
+    </div>
+
+    <button class="primary-button checkout-button" onclick="checkout()">
+      Lanjut Checkout →
+    </button>
+
+  </div>
+</div>
+
+<script src="products.js"></script>
+<script src="cart.js"></script>
+
+</body>
+</html>
