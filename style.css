@@ -598,3 +598,119 @@ footer p {
     height: 180px;
   }
 }
+
+/* PAYMENT PAGE */
+.checkout-page {
+  min-height: 100vh;
+  padding: 70px 20px;
+  background: #0b0a12;
+  color: #fff;
+}
+
+.checkout-section {
+  width: 100%;
+  max-width: 650px;
+  margin: auto;
+}
+
+.checkout-section h1 {
+  font-size: clamp(28px, 5vw, 42px);
+  margin: 10px 0 30px;
+}
+
+.payment-box {
+  background: #171525;
+  border: 1px solid #302b46;
+  border-radius: 20px;
+  padding: 28px;
+  box-shadow: 0 15px 45px rgba(0,0,0,.25);
+}
+
+#order-code {
+  color: #b69aff;
+  font-size: 26px;
+  margin: 8px 0 25px;
+}
+
+#payment-summary {
+  background: #100f1b;
+  padding: 18px;
+  border-radius: 13px;
+  margin-bottom: 28px;
+}
+
+.cart-summary-item {
+  padding: 10px 0;
+  border-bottom: 1px solid #302b46;
+}
+
+.cart-summary-item p {
+  color: #aaa6bb;
+  margin-top: 6px;
+}
+
+.payment-box h3 {
+  margin: 20px 0 15px;
+}
+
+.payment-methods {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+}
+
+.payment-methods button {
+  background: #211e32;
+  color: #fff;
+  border: 1px solid #39334f;
+  border-radius: 12px;
+  padding: 16px 10px;
+  font-size: 15px;
+  cursor: pointer;
+  transition: .2s;
+}
+
+.payment-methods button:hover,
+.payment-methods button.active {
+  background: #7449d8;
+  border-color: #a783ff;
+}
+
+.payment-detail {
+  background: #100f1b;
+  border: 1px solid #39334f;
+  border-radius: 13px;
+  padding: 20px;
+  margin-top: 20px;
+  line-height: 1.8;
+}
+
+.payment-detail strong {
+  color: #c2aaff;
+}
+
+#paid-button {
+  width: 100%;
+  margin-top: 25px;
+  border: none;
+  cursor: pointer;
+}
+
+#paid-button:disabled {
+  opacity: .4;
+  cursor: not-allowed;
+}
+
+@media (max-width: 480px) {
+  .checkout-page {
+    padding: 40px 15px;
+  }
+
+  .payment-box {
+    padding: 20px;
+  }
+
+  .payment-methods {
+    grid-template-columns: 1fr 1fr;
+  }
+}
